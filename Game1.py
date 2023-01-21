@@ -169,11 +169,29 @@ def main():
                     blank_cell_idx = moveU(game_board,blank_cell_idx,num_rows,num_cols)
                 elif idx == blank_cell_idx-num_cols:
                     blank_cell_idx = moveD(game_board,blank_cell_idx,num_cols)
+        if isGameOver(game_board, size):
+            game_board[blank_cell_idx] = num_cells-1
+            is_running = False
+        screen.fill(cfg.BACKGROUNDCOLOR)
+        for i in range(num_cells):
+            if game_board[i] == -1:
+                continue
+            x_pos = i//num_cols
+            y_pos = i% num_cols
+            
+            rect = pygame.Rect(y_pos*cell_width, x_pos*cell_height,cell_width,cell_height)
+            img_area = pygame.Rect((game_board[i]%num_cols)*cell_width,(game_board[i]//num_cols)*cell_height,cell_width,cell_height)
 
-
-
-
-
+            screen.blit(game_img_used, rect, img_area)
+            
+        for i in range (num_cols+1):
+            pygame.draw.line(screen,cfg.BLACK,(i*cell_width,0),(i*cell_width,game_img_used_rect.height))
+        for i in range (num_rows+1):
+            pygame.draw.line(screen, cfg.BLACK,(0,i*cell_height),(game_img_used_rect.width, i*cell_height))
+                
+        pygame.display.update()
+        clock.tick(cfg.FPS)
+    ShowEndInterface(screen,game_img_used_rect.width,game_img_used_rect.height)
 
 
 if __name__ == '__main__':
