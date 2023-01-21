@@ -19,7 +19,7 @@ def moveR(board, blank_cell_idx, num_cols):
     if blank_cell_idx % num_cols == 0:
         return blank_cell_idx
     board[blank_cell_idx -
-          1], board[blank_cell_idx] = board[black_cell_idx], board[black_cell_idx-1]
+          1], board[blank_cell_idx] = board[blank_cell_idx], board[blank_cell_idx-1]
     return blank_cell_idx-1
 
 
@@ -75,7 +75,7 @@ def GeImagePaths(rootdir):
 
 def ShowEndInterface(screen, width, height):
     screen.fill(cfg.BACKGROUNDCOLOR)
-    font = pygame.font.Font(cfg.FONTPATH, width/15)
+    font = pygame.font.Font(cfg.FONTPATH, width//15)
     title = font.render('Good Job! You Won!', True, (233, 150, 122))
     rect = title.get_rect()
     rect.midtop = (width/2, height/2.5)
@@ -115,6 +115,31 @@ def ShowStartInterface(screen, width, height):
                 if event.key ==ord('m'): return 4
                 if event.key ==ord('h'): return 5
         pygame.display.update()
-        
+
+def main():
+    pygame.init()
+    clock = pygame.time.Clock()
+
+    game_img_used = pygame.image.load(GeImagePaths(cfg.PRICTURE_ROOT_DIR))
+    game_img_used = pygame.transform.scale(game_img_used,cfg.SCREENSIZE)
+    game_img_used_rect = game_img_used.get_rect()
+    
+    screen = pygame.display.set_mode(cfg.SCREENSIZE)
+    pygame.display.set_caption('Pokemon')
+    
+    size = ShowStartInterface(screen,game_img_used_rect.width,game_img_used_rect.height)
+    assert isinstance(size, int)
+    num_rows, num_cols = size, size
+    num_cells = size*size
+    
+    cell_width = game_img_used_rect.width//num_cols
+    cell_height = game_img_used_rect.height//num_rows
+    
+    while True: 
+        game_board, blank_cell_idx = CreateBoard(num_rows,num_cols,num_cells)
+        if not isGameOver(game_board,size):
+            break
+    is_running = True
+    
 if __name__ == '__main__':
     main()
