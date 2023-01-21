@@ -141,5 +141,40 @@ def main():
             break
     is_running = True
     
+    while is_running:
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT) or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT or event.key == ord('a'):
+                    blank_cell_idx = moveL(game_board,blank_cell_idx,num_cols)
+                elif event.key == pygame.K_RIGHT or event.key == ord('d'):
+                    blank_cell_idx = moveR(game_board,blank_cell_idx,num_cols)
+                elif event.key == pygame.K_UP or event.key == ord('w'):
+                    blank_cell_idx = moveU(game_board,blank_cell_idx,num_rows,num_cols)
+                elif event.key == pygame.K_DOWN or event.key == ord('s'):
+                    blank_cell_idx = moveD(game_board,blank_cell_idx,num_cols)
+           
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                x, y = pygame.mouse.get_pos()
+                x_pos = x//cell_width
+                y_pos =y//cell_height
+                idx = x_pos + y_pos*num_cols
+                if idx == blank_cell_idx-1:
+                    blank_cell_idx = moveR(game_board,blank_cell_idx,num_cols)
+                elif idx == blank_cell_idx+1:
+                    blank_cell_idx = moveL(game_board,blank_cell_idx,num_cols)
+                elif idx == blank_cell_idx+num_cols:
+                    blank_cell_idx = moveU(game_board,blank_cell_idx,num_rows,num_cols)
+                elif idx == blank_cell_idx-num_cols:
+                    blank_cell_idx = moveD(game_board,blank_cell_idx,num_cols)
+
+
+
+
+
+
+
 if __name__ == '__main__':
     main()
