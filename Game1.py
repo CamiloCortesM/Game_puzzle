@@ -56,7 +56,6 @@ def CreateBoard(num_rows, num_cols, num_cells):
 
     for i in range(cfg.RANDNUM):
         direction = random.randint(0, 3)
-        print(board)
         if direction == 0:
             blank_cell_idx = moveL(board, blank_cell_idx, num_cols)
         elif direction == 1:
@@ -69,8 +68,11 @@ def CreateBoard(num_rows, num_cols, num_cells):
 
 
 def GetImagePaths(rootdir):
+    print(rootdir)
     imagenames = os.listdir(rootdir)
+    print(imagenames)
     assert len(imagenames) > 0
+    print(os.path.join(rootdir, random.choice(imagenames)))
     return os.path.join(rootdir, random.choice(imagenames))
 
 

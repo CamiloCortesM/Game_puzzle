@@ -2,9 +2,9 @@ import os
 
 SCREENSIZE = (640,640)
 
-PRICTURE_ROOT_DIR = os.path.join(os.getcwd(),'resources/pictures')
+PRICTURE_ROOT_DIR = os.path.join(os.getcwd(),'resources','pictures')
 
-FONTPATH = os.path.join(os.getcwd(),'resources/font/FZSTK.TTF')
+FONTPATH = os.path.join(os.getcwd(),'resources','font','FZSTK.TTF')
 
 BACKGROUNDCOLOR = (255, 255, 255)
 
